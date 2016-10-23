@@ -2,7 +2,7 @@
 #  Change values here                                                     #
 #                                                                         #
 MODEL="libuv"                                                             #
-VERSION="1.8.0"                                                           #
+VERSION="1.9.1"                                                           #
 SRCURL="https://github.com/libuv/libuv/archive/v${VERSION}.tar.gz"        #
 #                                                                         #
 ###########################################################################
@@ -44,7 +44,7 @@ module_arch_build()
                 --enable-static \
                 --disable-shared \
                 --with-sysroot="${SDK_PATH}"
-    make 
+    make -j8
     make install
     make clean
     
@@ -70,7 +70,6 @@ module_building()
     module_arch_build i386 iPhoneSimulator
     module_arch_build x86_64 iPhoneSimulator
     cib_module_lib_create "uv"
-    cib_module_inc_copy "uv.h uv-version.h uv-unix.h uv-threadpool.h uv-errno.h uv-darwin.h"
+    cib_module_inc_copy "pthread-barrier.h uv.h uv-version.h uv-unix.h uv-threadpool.h uv-errno.h uv-darwin.h"
     echo "Building done." 
 }
-
